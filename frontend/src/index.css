@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Glass+Antiqua&family=Rubik&display=swap');
+
+* {
+  font-family: "Rubik";
+}
+
+/* GLOBAL */
+.button {
+  @apply rounded duration-300 text-white  bg-violet-800 shadow-violet-800 shadow-md border-2 border-transparent hover:border-violet-800 hover:text-violet-800 hover:bg-violet-100;
+}
+
+/* NAVBAR */
+.nav-link {
+  @apply rounded text-lg px-4 py-1 duration-300 hover:text-white hover:bg-violet-800 shadow shadow-transparent hover:shadow hover:shadow-violet-800;
+}
+
+/* AUTH */
+.auth-input {
+  @apply rounded border-2 border-slate-200 bg-slate-200 text-slate-400 placeholder:text-slate-400 py-2 px-2 w-full outline-none focus:border-violet-500 focus:text-slate-600 duration-300;
+}
