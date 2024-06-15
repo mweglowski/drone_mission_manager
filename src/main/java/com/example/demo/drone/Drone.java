@@ -3,7 +3,7 @@ package com.example.demo.drone;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "drone")
 public class Drone {
     @Id
     @SequenceGenerator(
@@ -20,15 +20,19 @@ public class Drone {
     private Double maxSpeed; // m/s
     private Double range; // km
 
+    private String imageSrc;
+
     public Drone() {}
 
-    public Drone(Long id, String name, Double maxSpeed, Double range) {
+    public Drone(Long id, String name, Double maxSpeed, Double range, String imageSrc) {
         this.id = id;
         this.name = name;
         this.maxSpeed = maxSpeed;
         this.range = range;
+        this.imageSrc = imageSrc;
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -59,6 +63,14 @@ public class Drone {
 
     public void setRange(Double range) {
         this.range = range;
+    }
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/drone")
+@RequestMapping(path = "/api/drone")
 public class DroneController {
     private final DroneService droneService;
 

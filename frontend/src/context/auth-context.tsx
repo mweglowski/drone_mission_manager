@@ -17,27 +17,27 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [email, setEmail] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const storedEmail = localStorage.getItem('email');
-  //   const storedToken = localStorage.getItem('token');
-  //   if (storedEmail && storedToken) {
-  //     setEmail(storedEmail);
-  //     setToken(storedToken);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+    const storedToken = localStorage.getItem('token');
+    if (storedEmail && storedToken) {
+      setEmail(storedEmail);
+      setToken(storedToken);
+    }
+  }, []);
 
   const login = (email: string, token: string) => {
     setEmail(email);
     setToken(token);
-    // localStorage.setItem('email', email);
-    // localStorage.setItem('token', token);
+    localStorage.setItem('email', email);
+    localStorage.setItem('token', token);
   };
 
   const logout = () => {
     setEmail(null);
     setToken(null);
-    // localStorage.removeItem('email');
-    // localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
   };
 
   return (

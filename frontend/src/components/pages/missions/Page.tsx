@@ -1,36 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Section from "../../../UI/Section";
 import { Link } from "react-router-dom";
 
-interface Drone {
-  id: number;
-  name: string;
-  maxSpeed: number;
-  range: number;
-}
 
 const Page: React.FC = () => {
-  const [drones, setDrones] = useState<Drone[]>([]);
-
-  // useEffect(() => {
-  //   fetch("/api/v1/drone")
-  //     .then((response) => response.json())
-  //     .then((data) => setDrones(data));
-  // }, []);
-
   return (
     <Section>
       <p className="text-2xl font-bold p-8">Missions route</p>
-
-      <ul>
-        {drones.map((drone) => (
-          <li key={drone.id}>
-            <div>{drone.name}</div>
-            <div>{drone.maxSpeed}</div>
-            <div>{drone.range}</div>
-          </li>
-        ))}
-      </ul>
 
       {/* CURRENT MISSIONS */}
       <div className="max-w-[800px] mx-auto p-4">
@@ -89,9 +65,9 @@ const Page: React.FC = () => {
         </div>
       </div>
 
-      <button className="button mx-auto mt-[70px] px-4 py-1 text-lg mb-[200px]">
+      <Link to="/missions/new" className="button mx-auto mt-[70px] px-4 py-1 text-lg mb-[200px]">
         New Mission
-      </button>
+      </Link>
     </Section>
   );
 };

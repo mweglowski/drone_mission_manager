@@ -27,7 +27,7 @@ const Page = () => {
     try {
       // AUTHENTICATE VIA API
       const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/authenticate",
+        "http://localhost:8080/api/auth/authenticate",
         credentials
       );
 

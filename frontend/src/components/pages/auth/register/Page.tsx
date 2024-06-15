@@ -35,7 +35,7 @@ const Page = () => {
     // MAKING POST REQUEST TO OUR BACKEND API
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/register",
+        "http://localhost:8080/api/auth/register",
         userObject
       );
 
