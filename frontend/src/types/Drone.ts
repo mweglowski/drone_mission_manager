@@ -1,4 +1,4 @@
-export type Drone = {
+export interface Drone {
   id: number;
   name: string;
   maxSpeed: number;

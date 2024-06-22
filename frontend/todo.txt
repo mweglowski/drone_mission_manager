@@ -1,0 +1,22 @@
+LATER
+	adding points or selecting area while creating a mission
+
+	completed missions
+	
+	current missions
+
+	account route
+		show account details
+		enable changing password
+
+	mission/:id route
+
+	admin
+		enable adding / removing drones
+		enable browsing users and their missions
+		enable 
+
+	add images / icons on each page
+
+
+COLOR = #5b21b6

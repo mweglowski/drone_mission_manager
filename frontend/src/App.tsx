@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
+import Home from "./components/pages/home/Page";
+
 import MissionsPage from "./components/pages/missions/Page";
 import NewMissionPage from "./components/pages/missions/new/Page";
 
@@ -17,6 +19,9 @@ const App: React.FC = () => {
 
       <div className="pt-[50px]">
         <Routes>
+          {/* HOME */}
+          <Route path="/" element={<Home />} />
+
           {/* MISSIONS */}
           <Route path="/missions" element={<MissionsPage />} />
           <Route path="/missions/new" element={<NewMissionPage />} />

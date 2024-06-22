@@ -32,7 +32,7 @@ const Page = () => {
       );
 
       // GET TOKEN
-      const token = response.data.token
+      const token = response.data.token;
 
       // CONTEXT
       login(credentials.email, token);
@@ -46,7 +46,13 @@ const Page = () => {
   return (
     <Section>
       <div className="max-w-[400px] w-full mx-auto flex flex-col">
-        <div className="text-xl font-bold mt-[100px] border-b-2 w-full text-center border-slate-200 text-slate-600">
+        <img
+          src={"/images/login.png"}
+          alt="Login Page Image"
+          className="max-w-[400px] mx-auto w-[90%]"
+        />
+
+        <div className="text-xl font-bold border-b-2 w-full text-center border-slate-200 text-slate-600">
           Login
         </div>
 
@@ -58,12 +64,14 @@ const Page = () => {
             type="email"
             placeholder="Email"
             className="auth-input"
+            defaultValue="example@email.com"
             ref={emailInputRef}
           />
           <input
             type="password"
             placeholder="Password"
             className="auth-input"
+            defaultValue="siema"
             ref={passwordInputRef}
           />
 

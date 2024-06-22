@@ -5,7 +5,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Glass+Antiqua&family=Rubik&display=swap');
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Rubik";
+}
+
+div {
+  animation: show-item 600ms ease-in-out;
+}
+@keyframes show-item {
+  from {
+    opacity: 0;
+    transform: translateY(-10%) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%) scale(1);
+  }
 }
 
 /* GLOBAL */

@@ -13,7 +13,7 @@ const MissionTypes = ({
 }: MissionTypesProps) => {
   return (
     <div className="flex flex-col">
-      <div className="mx-auto text-slate-500">Choose Mission Type</div>
+      <div className="mx-auto text-slate-500 text-lg">Choose Mission Type</div>
       <ul className="flex flex-wrap gap-2 justify-center">
         {missionTypes.map((missionType: string) => (
           <li

@@ -30,7 +30,7 @@ const Page = () => {
       role: "USER",
     };
 
-    console.log("register data\n", userObject)
+    console.log("register data\n", userObject);
 
     // MAKING POST REQUEST TO OUR BACKEND API
     try {
@@ -52,7 +52,13 @@ const Page = () => {
   return (
     <Section>
       <div className="max-w-[400px] w-full mx-auto flex flex-col">
-        <div className="text-xl font-bold mt-[100px] border-b-2 w-full text-center border-slate-200 text-slate-600">
+        <img
+          src={"/images/login.png"}
+          alt="Register Page Image"
+          className="max-w-[400px] mx-auto w-[90%]"
+        />
+
+        <div className="text-xl font-bold border-b-2 w-full text-center border-slate-200 text-slate-600">
           Register
         </div>
 

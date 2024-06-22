@@ -24,7 +24,6 @@ public class Mission {
     private Type type;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Boolean completed;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,14 +36,13 @@ public class Mission {
     // Constructors, getters and setters
     public Mission() {}
 
-    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, Boolean completed, User user, Drone drone) {
+    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, User user, Drone drone) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.completed = completed;
         this.user = user;
         this.drone = drone;
     }
@@ -95,14 +93,6 @@ public class Mission {
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
-    }
-
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
     }
 
     public User getUser() {
