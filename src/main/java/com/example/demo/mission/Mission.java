@@ -1,9 +1,11 @@
 package com.example.demo.mission;
 
 import com.example.demo.drone.Drone;
+import com.example.demo.missionpoint.MissionPoint;
 import com.example.demo.user.User;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "mission")
@@ -25,6 +27,9 @@ public class Mission {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MissionPoint> missionPoints;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -36,7 +41,7 @@ public class Mission {
     // Constructors, getters and setters
     public Mission() {}
 
-    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, User user, Drone drone) {
+    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, User user, Drone drone, List<MissionPoint> missionPoints) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -45,6 +50,7 @@ public class Mission {
         this.endDate = endDate;
         this.user = user;
         this.drone = drone;
+        this.missionPoints = missionPoints;
     }
 
     public Long getId() {
@@ -109,5 +115,13 @@ public class Mission {
 
     public void setDrone(Drone drone) {
         this.drone = drone;
+    }
+
+    public List<MissionPoint> getMissionPoints() {
+        return missionPoints;
+    }
+
+    public void setMissionPoints(List<MissionPoint> missionPoints) {
+        this.missionPoints = missionPoints;
     }
 }

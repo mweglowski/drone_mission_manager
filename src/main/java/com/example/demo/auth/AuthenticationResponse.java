@@ -2,13 +2,15 @@ package com.example.demo.auth;
 
 public class AuthenticationResponse {
     private String token;
+    private Long userId;
 
     // No-argument constructor
     public AuthenticationResponse() {}
 
     // All-argument constructor
-    public AuthenticationResponse(String token) {
+    public AuthenticationResponse(String token, Long userId) {
         this.token = token;
+        this.userId = userId;
     }
 
     // Getter for token
@@ -27,6 +29,14 @@ public class AuthenticationResponse {
         return "AuthenticationResponse{" +
                 "token='" + token + '\'' +
                 '}';
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     // equals method
@@ -49,6 +59,7 @@ public class AuthenticationResponse {
     // Builder class for AuthenticationResponse
     public static class Builder {
         private String token;
+        private Long userId;
 
         public Builder() {}
 
@@ -57,8 +68,13 @@ public class AuthenticationResponse {
             return this;
         }
 
+        public Builder userId(Long userId) {
+            this.userId = userId;
+            return this;
+        }
+
         public AuthenticationResponse build() {
-            return new AuthenticationResponse(this.token);
+            return new AuthenticationResponse(this.token, this.userId);
         }
     }
 

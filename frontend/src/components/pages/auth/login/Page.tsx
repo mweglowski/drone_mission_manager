@@ -33,9 +33,10 @@ const Page = () => {
 
       // GET TOKEN
       const token = response.data.token;
+      const userId = response.data.userId;
 
       // CONTEXT
-      login(credentials.email, token);
+      login(token, userId);
       navigate("/missions");
     } catch (error) {
       setIsError(true);

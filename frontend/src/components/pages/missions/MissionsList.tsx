@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Mission as MissionInterface } from "../../../types/Mission";
 import { Drone } from "../../../types/Drone";
 import axios from "axios";
-import { useAuth } from "../../../context/auth-context";
 import Mission from "./Mission";
 
 interface MissionsListProps {
@@ -12,10 +10,11 @@ interface MissionsListProps {
 }
 
 const MissionsList = ({ missions, title }: MissionsListProps) => {
-  const { token } = useAuth();
   const [dronesData, setDronesData] = useState<{ [key: string]: Drone }>({});
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     const fetchDroneData = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/drone", {
@@ -32,7 +31,6 @@ const MissionsList = ({ missions, title }: MissionsListProps) => {
           {}
         );
 
-        console.log(drones);
         setDronesData(drones);
       } catch (error) {
         console.error("Error fetching drones data", error);
@@ -50,7 +48,7 @@ const MissionsList = ({ missions, title }: MissionsListProps) => {
       </div>
 
       {/* LIST OF MISSIONS */}
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col-reverse gap-4">
         {missions?.map((mission: MissionInterface) => {
           const drone = dronesData[mission.drone.id];
 

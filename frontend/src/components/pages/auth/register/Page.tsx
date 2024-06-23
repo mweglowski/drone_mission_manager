@@ -39,8 +39,6 @@ const Page = () => {
         userObject
       );
 
-      console.log("User registered:", response.data);
-
       navigate("/auth/login");
     } catch (error) {
       setIsError(true);

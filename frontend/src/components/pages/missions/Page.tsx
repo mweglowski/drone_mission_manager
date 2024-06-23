@@ -1,46 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Section from "../../../UI/Section";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../context/auth-context";
 import axios from "axios";
 import MissionsList from "./MissionsList";
 import { Mission } from "../../../types/Mission";
 
 const Page: React.FC = () => {
-  const { email, token } = useAuth();
-
-  const [userId, setUserId] = useState(null);
-
-  const [currentMissions, setCurrentMissions] = useState();
-  const [completedMissions, setCompletedMissions] = useState();
-
-  // USER DATA
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/user?email=${email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setUserId(response.data.id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (email) {
-      fetchUserData();
-    }
-  }, [email, token]);
+  const [currentMissions, setCurrentMissions] = useState<Mission[]>([]);
+  const [completedMissions, setCompletedMissions] = useState<Mission[]>([]);
 
   // FETCH MISSIONS
   useEffect(() => {
     const fetchUserMissions = async () => {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
+      if (!userId || !token) {
+        console.error("User ID or Token is missing");
+        return;
+      }
+
       try {
         const response = await axios.get(
           `http://localhost:8080/api/mission?userId=${userId}`,
@@ -51,20 +30,22 @@ const Page: React.FC = () => {
           }
         );
 
+        const current = response.data.filter(
+          (mission: Mission) => new Date(mission.endDate) > new Date()
+        );
+        const completed = response.data.filter(
+          (mission: Mission) => new Date(mission.endDate) < new Date()
+        );
 
-        
-        setCurrentMissions(response.data.filter((mission: Mission) => new Date(mission.endDate) > new Date()));
-        
-        setCompletedMissions(response.data.filter((mission: Mission) => new Date(mission.endDate) < new Date()));
+        setCurrentMissions(current);
+        setCompletedMissions(completed);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching missions:", error);
       }
     };
 
-    if (userId) {
-      fetchUserMissions();
-    }
-  }, [userId, token]);
+    fetchUserMissions();
+  }, []);
 
   return (
     <Section>

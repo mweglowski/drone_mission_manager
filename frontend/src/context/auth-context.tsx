@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
 
 interface AuthContextType {
-  email: string | null;
   token: string | null;
-  login: (email: string, token: string) => void;
+  userId: number | null;
+  login: (token: string, userId: number) => void;
   logout: () => void;
 }
 
@@ -13,41 +13,40 @@ interface AuthProviderProps {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [email, setEmail] = useState<string | null>(null);
+const AuthProvider = ({children} : AuthProviderProps) => {
   const [token, setToken] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number | null>(null);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
     const storedToken = localStorage.getItem('token');
-    if (storedEmail && storedToken) {
-      setEmail(storedEmail);
+    const storedUserId = localStorage.getItem('userId');
+    if (storedToken && storedUserId) {
       setToken(storedToken);
+      setUserId(Number(storedUserId));
     }
   }, []);
 
-  const login = (email: string, token: string) => {
-    setEmail(email);
+  const login = (token: string, userId: number) => {
     setToken(token);
-    localStorage.setItem('email', email);
+    setUserId(userId);
     localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId.toString());
   };
 
   const logout = () => {
-    setEmail(null);
     setToken(null);
-    localStorage.removeItem('email');
+    setUserId(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   };
 
   return (
-    <AuthContext.Provider value={{ email, token, login, logout }}>
+    <AuthContext.Provider value={{ token, userId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// CUSTOM HOOK
 const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

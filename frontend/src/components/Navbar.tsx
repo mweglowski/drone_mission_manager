@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 
 const Navbar: React.FC = () => {
-  const { email } = useAuth();
+  const { userId } = useAuth();
 
   return (
     <nav className="fixed w-full p-2 flex justify-center border-b-2 border-slate-200 text-slate-700 bg-[#ffffffee] z-50">
@@ -11,13 +11,13 @@ const Navbar: React.FC = () => {
         <Link to={"/"} className="nav-link">
           Home
         </Link>
-        {email && (
+        {userId && (
           <Link to={"/missions"} className="nav-link">
             Missions
           </Link>
         )}
-        <Link to={`/auth/${email ? "logout" : "login"}`} className="nav-link">
-          {email ? "Logout" : "Login"}
+        <Link to={`/auth/${userId ? "logout" : "login"}`} className="nav-link">
+          {userId ? "Logout" : "Login"}
         </Link>
       </ul>
     </nav>

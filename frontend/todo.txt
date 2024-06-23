@@ -1,10 +1,4 @@
 LATER
-	adding points or selecting area while creating a mission
-
-	completed missions
-	
-	current missions
-
 	account route
 		show account details
 		enable changing password
@@ -16,7 +10,7 @@ LATER
 		enable browsing users and their missions
 		enable 
 
-	add images / icons on each page
+	add images / icons on each page and improve website appearance
 
 
 COLOR = #5b21b6

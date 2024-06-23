@@ -24,9 +24,11 @@ public class MissionController {
     @GetMapping
     public List<Mission> getMissions(@RequestParam Optional<Long> userId) {
         Optional<User> user = Optional.empty();
+
         if (userId.isPresent()) {
             user = Optional.of(userService.getUserById(userId.get()));
         }
+
         return missionService.getMissions(user);
     }
 

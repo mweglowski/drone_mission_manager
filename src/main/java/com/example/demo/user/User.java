@@ -14,7 +14,7 @@ import java.util.Objects;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -29,7 +29,7 @@ public class User implements UserDetails {
     public User() {}
 
     // All-argument constructor
-    public User(Integer id, String firstName, String lastName, String email, String password, String phoneNumber, String address, Role role) {
+    public User(Long id, String firstName, String lastName, String email, String password, String phoneNumber, String address, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,11 +41,11 @@ public class User implements UserDetails {
     }
 
     // Getters and Setters
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -144,7 +144,7 @@ public class User implements UserDetails {
 
     // Builder class for User
     public static class Builder {
-        private Integer id;
+        private Long id;
         private String firstName;
         private String lastName;
         private String email;
@@ -156,7 +156,7 @@ public class User implements UserDetails {
         public Builder() {
         }
 
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }

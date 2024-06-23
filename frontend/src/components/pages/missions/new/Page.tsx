@@ -16,7 +16,7 @@ import { Point } from "../../../../types/Point";
 
 const Page: React.FC = () => {
   // USER TOKEN
-  const { token, email } = useAuth();
+  const { token, userId } = useAuth();
 
   // ABILITY TO CHANGE ROUTES
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const Page: React.FC = () => {
   const [selectedMissionType, setMissionType] = useState("");
   const [dronesData, setDronesData] = useState<Drone[]>([]);
   const [selectedDrone, setSelectedDrone] = useState<Drone>();
-  const [userId, setUserId] = useState<number>();
   const [missionPoints, setMissionPoints] = useState<Point[]>([]);
 
   // INPUT REFERENCES
@@ -52,28 +51,28 @@ const Page: React.FC = () => {
   }, [token]);
 
   // FETCH USER DATA
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/user?email=${email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:8080/api/user?email=${email}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
 
-        setUserId(response.data.id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //       setUserId(response.data.id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    if (email) {
-      fetchUserData();
-    }
-  }, [email, token]);
+  //   if (email) {
+  //     fetchUserData();
+  //   }
+  // }, [email, token]);
 
   // ADD MISSION
   const createMission = async (event: FormEvent) => {
@@ -117,6 +116,12 @@ const Page: React.FC = () => {
           ...prevPoints,
           { lat: e.latlng.lat, lng: e.latlng.lng, order: prevPoints.length },
         ]);
+
+        console.log({
+          lat: e.latlng.lat,
+          lng: e.latlng.lng,
+          order: missionPoints.length,
+        });
       },
     });
     return null;
@@ -185,7 +190,9 @@ const Page: React.FC = () => {
             <div className="mx-auto text-slate-500 text-lg">
               Select Destination Points
             </div>
+
             <button
+              type="button"
               onClick={() => {
                 setMissionPoints([]);
               }}
@@ -196,6 +203,7 @@ const Page: React.FC = () => {
 
             <MapContainer center={center} zoom={13} className="rounded h-full">
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
               {missionPoints.map((point: Point, index) => (
                 <Marker
                   key={index}
@@ -203,6 +211,7 @@ const Page: React.FC = () => {
                   icon={CustomMarkerIcon}
                 />
               ))}
+
               <MapClickHandler />
             </MapContainer>
           </div>
