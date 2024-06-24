@@ -1,3 +1,4 @@
+import { Image } from "./Image";
 import { Point } from "./Point";
 
 export interface Mission {
@@ -9,5 +10,6 @@ export interface Mission {
 	user: { id: number },
 	startDate: string,
 	endDate: string,
-	missionsPoints: Point[],
+	missionPoints: Point[],
+	missionImages: Image[],
 }

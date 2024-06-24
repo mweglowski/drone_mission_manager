@@ -7,6 +7,10 @@ import Home from "./components/pages/home/Page";
 
 import MissionsPage from "./components/pages/missions/Page";
 import NewMissionPage from "./components/pages/missions/new/Page";
+import MissionPage from "./components/pages/missions/id/Page";
+
+import AccountPage from "./components/pages/account/Page";
+import AccountNewPasswordPage from "./components/pages/account/password/new/Page";
 
 import RegisterPage from "./components/pages/auth/register/Page";
 import LoginPage from "./components/pages/auth/login/Page";
@@ -25,6 +29,14 @@ const App: React.FC = () => {
           {/* MISSIONS */}
           <Route path="/missions" element={<MissionsPage />} />
           <Route path="/missions/new" element={<NewMissionPage />} />
+          <Route path="/missions/:id" element={<MissionPage />} />
+
+          {/* ACCOUNT */}
+          <Route path="/account" element={<AccountPage />} />
+          <Route
+            path="/account/password/new"
+            element={<AccountNewPasswordPage />}
+          />
 
           {/* AUTHENTICATION */}
           <Route path="/auth/register" element={<RegisterPage />} />

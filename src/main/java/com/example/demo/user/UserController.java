@@ -2,11 +2,9 @@ package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -20,9 +18,33 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
-        Optional<User> user = userService.findByEmail(email);
+    public ResponseEntity<User> getUserById(@RequestParam Long id) {
+        Optional<User> user = Optional.ofNullable(userService.getUserById(id));
+
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, Object> payload) {
+        // EXTRACTING PROPERTIES
+        Long id = ((Number) payload.get("id")).longValue();
+        String currentPassword = (String) payload.get("currentPassword");
+        String newPassword = (String) payload.get("newPassword");
+
+        // GET THE USER
+        Optional<User> user = Optional.ofNullable(userService.getUserById(id));
+
+        if (user.isPresent()) {
+            boolean isPasswordChanged = userService.changePassword(user.get(), currentPassword, newPassword);
+
+            if (isPasswordChanged) {
+                return ResponseEntity.ok("Password changed successfully.");
+            } else {
+                return ResponseEntity.badRequest().body("Current password is incorrect.");
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

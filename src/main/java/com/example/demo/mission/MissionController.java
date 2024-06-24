@@ -3,6 +3,7 @@ package com.example.demo.mission;
 import com.example.demo.user.User;
 import com.example.demo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,19 @@ public class MissionController {
         Optional<User> user = Optional.empty();
 
         if (userId.isPresent()) {
-            user = Optional.of(userService.getUserById(userId.get()));
+            user = Optional.ofNullable(userService.getUserById(userId.get()));
         }
 
         return missionService.getMissions(user);
+    }
+
+    // GET MISSION BY ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Mission> getMissionById(@PathVariable Long id) {
+        Optional<Mission> mission = missionService.getMissionById(id);
+
+        return mission.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST

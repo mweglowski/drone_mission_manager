@@ -12,9 +12,14 @@ const Navbar: React.FC = () => {
           Home
         </Link>
         {userId && (
-          <Link to={"/missions"} className="nav-link">
-            Missions
-          </Link>
+          <>
+            <Link to={"/missions"} className="nav-link">
+              Missions
+            </Link>
+            <Link to={"/account"} className="nav-link">
+              Account
+            </Link>
+          </>
         )}
         <Link to={`/auth/${userId ? "logout" : "login"}`} className="nav-link">
           {userId ? "Logout" : "Login"}

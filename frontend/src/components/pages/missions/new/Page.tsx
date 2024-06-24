@@ -13,6 +13,7 @@ import MissionTypes from "./MissionTypes";
 import DroneSelection from "./DroneSelection";
 import { Drone } from "../../../../types/Drone";
 import { Point } from "../../../../types/Point";
+import { Image } from "../../../../types/Image";
 
 const Page: React.FC = () => {
   // USER TOKEN
@@ -27,6 +28,7 @@ const Page: React.FC = () => {
   const [dronesData, setDronesData] = useState<Drone[]>([]);
   const [selectedDrone, setSelectedDrone] = useState<Drone>();
   const [missionPoints, setMissionPoints] = useState<Point[]>([]);
+  const [missionImages, setMissionImages] = useState<Image[]>([]);
 
   // INPUT REFERENCES
   const titleInputRef = useRef<HTMLInputElement>(null);
@@ -48,31 +50,7 @@ const Page: React.FC = () => {
     };
 
     fetchDroneData();
-  }, [token]);
-
-  // FETCH USER DATA
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:8080/api/user?email=${email}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-  //       setUserId(response.data.id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   if (email) {
-  //     fetchUserData();
-  //   }
-  // }, [email, token]);
+  }, []);
 
   // ADD MISSION
   const createMission = async (event: FormEvent) => {
@@ -92,6 +70,7 @@ const Page: React.FC = () => {
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       missionPoints,
+      missionImages,
     };
 
     try {
@@ -111,24 +90,43 @@ const Page: React.FC = () => {
   // HANDLE MAP CLICK
   const MapClickHandler: React.FC = () => {
     useMapEvents({
-      click: (e: any) => {
-        setMissionPoints((prevPoints) => [
-          ...prevPoints,
-          { lat: e.latlng.lat, lng: e.latlng.lng, order: prevPoints.length },
-        ]);
-
-        console.log({
+      click: async (e: any) => {
+        const newPoint = {
           lat: e.latlng.lat,
           lng: e.latlng.lng,
           order: missionPoints.length,
-        });
+        };
+
+        setMissionPoints((prevPoints) => [...prevPoints, newPoint]);
+
+        // FETCH IMAGES FOR SINGLE POINT (2 IMAGES)
+        try {
+          const response = await axios.get("http://localhost:8080/api/images", {
+            params: {
+              lat: newPoint.lat,
+              lon: newPoint.lng,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            responseType: "blob",
+          });
+
+          // CREATING IMAGE URL FOR STREET VIEW
+          const imageUrl = URL.createObjectURL(response.data);
+          console.log(imageUrl);
+
+          setMissionImages((prevImages) => [...prevImages, { imageUrl }]);
+        } catch (error) {
+          console.error("Error fetching images:", error);
+        }
       },
     });
     return null;
   };
 
   // MAP CENTER
-  const center: LatLngExpression = [51.505, -0.09];
+  const center: LatLngExpression = [54.413, 18.609];
 
   return (
     <Section>

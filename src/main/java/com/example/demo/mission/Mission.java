@@ -1,6 +1,7 @@
 package com.example.demo.mission;
 
 import com.example.demo.drone.Drone;
+import com.example.demo.missionimage.MissionImage;
 import com.example.demo.missionpoint.MissionPoint;
 import com.example.demo.user.User;
 import jakarta.persistence.*;
@@ -30,6 +31,9 @@ public class Mission {
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MissionPoint> missionPoints;
 
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MissionImage> missionImages;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -41,7 +45,7 @@ public class Mission {
     // Constructors, getters and setters
     public Mission() {}
 
-    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, User user, Drone drone, List<MissionPoint> missionPoints) {
+    public Mission(Long id, String title, String description, Type type, LocalDateTime startDate, LocalDateTime endDate, User user, Drone drone, List<MissionPoint> missionPoints, List<MissionImage> missionImages) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -51,6 +55,7 @@ public class Mission {
         this.user = user;
         this.drone = drone;
         this.missionPoints = missionPoints;
+        this.missionImages = missionImages;
     }
 
     public Long getId() {
@@ -123,5 +128,13 @@ public class Mission {
 
     public void setMissionPoints(List<MissionPoint> missionPoints) {
         this.missionPoints = missionPoints;
+    }
+
+    public List<MissionImage> getMissionImages() {
+        return missionImages;
+    }
+
+    public void setMissionImages(List<MissionImage> missionImages) {
+        this.missionImages = missionImages;
     }
 }

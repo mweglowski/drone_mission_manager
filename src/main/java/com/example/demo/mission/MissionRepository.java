@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, User> {
     List<Mission> findMissionsByUser(User user);
+
+    Mission findById(Long id);
 }
