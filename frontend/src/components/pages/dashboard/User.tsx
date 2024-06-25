@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import UserIcon from "../../../icons/user.svg";
 import { Link } from "react-router-dom";
 import { User as UserInterface } from "../../../types/User";
