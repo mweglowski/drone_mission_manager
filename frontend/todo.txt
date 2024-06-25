@@ -1,21 +1,10 @@
 LATER
-	mission/:id route
-
-	generate images for missions based on instructions provided by user in mission creation
-		create mission images table
-		fetch / generate images, maybe some openai?
-		create instructions textarea in mission creation
-		update mission table schema to include instructions
-
 	admin (another endpoints?)
 		enable adding / removing drones
 		enable browsing users and their missions
-		enable
 		Aplikacja posiada zdefiniowane przynajmniej 2 role użytkownika po których różnicowany jest dostęp do endpointów
+
+	more drone details
 
 
 COLOR = #5b21b6
-
-flickr api 
-key 34981fcaa06a4f778127a95886f1c813
-secret ffbff81ab69d32dd

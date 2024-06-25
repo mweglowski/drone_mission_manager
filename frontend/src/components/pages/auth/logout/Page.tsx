@@ -8,9 +8,6 @@ const Page = () => {
 
   const { logout } = useAuth();
 
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
-
   // LOGOUT USER
   const logoutHandler = async (event: FormEvent) => {
     event?.preventDefault();

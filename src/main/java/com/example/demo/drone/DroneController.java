@@ -1,10 +1,10 @@
 package com.example.demo.drone;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/drone")
@@ -16,12 +16,17 @@ public class DroneController {
         this.droneService = droneService;
     }
 
-
     // REQUESTS
     // GET
     @GetMapping
     public List<Drone> getDrones() {
         return droneService.getDrones();
+    }
+
+    // GET SINGLE DRONE BY ID
+    @GetMapping("/{droneId}")
+    public Optional<Drone> getDroneById(@PathVariable("droneId") Long droneId) {
+        return droneService.getDroneById(droneId);
     }
 
     // POST
@@ -31,14 +36,17 @@ public class DroneController {
     }
 
     // DELETE
-    @DeleteMapping(path = "{droneId}")
-    public void deleteDrone(@PathVariable("droneId") Long droneId) {
-        droneService.deleteDrone(droneId);
+    @DeleteMapping(path = "{id}")
+    public void deleteDrone(@PathVariable("id") Long id) {
+        droneService.deleteDrone(id);
     }
 
     // PUT
-    @PutMapping(path = "{droneId}")
-    public void updateDrone(@PathVariable("droneId") Long droneId, @RequestParam(required = false) String name, @RequestParam(required = false) Double maxSpeed, @RequestParam(required = false) Double range) {
-        droneService.updateDrone(droneId, name, maxSpeed, range);
+    @PutMapping(path = "{id}")
+    public void updateDrone(
+            @PathVariable("id") Long droneId,
+            @RequestBody Drone updatedDrone
+    ) {
+        droneService.updateDrone(droneId, updatedDrone.getName(), updatedDrone.getMaxSpeed(), updatedDrone.getRange(), updatedDrone.getImageSrc());
     }
 }

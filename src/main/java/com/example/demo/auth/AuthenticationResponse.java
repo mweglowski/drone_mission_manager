@@ -1,16 +1,20 @@
 package com.example.demo.auth;
 
+import com.example.demo.user.Role;
+
 public class AuthenticationResponse {
     private String token;
     private Long userId;
+    private Role role;
 
     // No-argument constructor
     public AuthenticationResponse() {}
 
     // All-argument constructor
-    public AuthenticationResponse(String token, Long userId) {
+    public AuthenticationResponse(String token, Long userId, Role role) {
         this.token = token;
         this.userId = userId;
+        this.role = role;
     }
 
     // Getter for token
@@ -39,6 +43,14 @@ public class AuthenticationResponse {
         this.userId = userId;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     // equals method
     @Override
     public boolean equals(Object o) {
@@ -60,6 +72,7 @@ public class AuthenticationResponse {
     public static class Builder {
         private String token;
         private Long userId;
+        private Role role;
 
         public Builder() {}
 
@@ -73,8 +86,13 @@ public class AuthenticationResponse {
             return this;
         }
 
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
         public AuthenticationResponse build() {
-            return new AuthenticationResponse(this.token, this.userId);
+            return new AuthenticationResponse(this.token, this.userId, this.role);
         }
     }
 

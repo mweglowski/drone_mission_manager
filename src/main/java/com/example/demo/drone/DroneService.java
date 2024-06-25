@@ -3,9 +3,7 @@ package com.example.demo.drone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PutMapping;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,10 +18,17 @@ public class DroneService {
         this.droneRepository = droneRepository;
     }
 
+    // GET ALL DRONES
     public List<Drone> getDrones() {
         return droneRepository.findAll();
     }
 
+    // GET DRONE BY ID
+    public Optional<Drone> getDroneById(Long droneId) {
+        return droneRepository.findById(droneId);
+    }
+
+    // ADD DRONE
     public void addNewDrone(Drone drone) {
         Optional<Drone> droneOptional = droneRepository.findDroneByName(drone.getName());
 
@@ -38,8 +43,14 @@ public class DroneService {
     }
 
     @Transactional
-    public void updateDrone(Long id, String name, Double maxSpeed, Double range) {
+    public void updateDrone(Long id, String name, Double maxSpeed, Double range, String imageSrc) {
         Drone droneToModify = droneRepository.findById(id).orElseThrow(() -> new IllegalStateException("Drone with id = " + id + " does not exist."));
+
+        System.out.println(id);
+        System.out.println(name);
+        System.out.println(maxSpeed);
+        System.out.println(range);
+        System.out.println(imageSrc);
 
         if (name != null && !name.isEmpty() && !Objects.equals(name, droneToModify.getName())) {
             Optional<Drone> droneWithSameName = droneRepository.findDroneByName(name);
@@ -57,6 +68,10 @@ public class DroneService {
 
         if (range != null && range > 0 && !range.equals(droneToModify.getRange())) {
             droneToModify.setRange(range);
+        }
+
+        if (imageSrc != null && !imageSrc.isEmpty() && !Objects.equals(imageSrc, droneToModify.getImageSrc())) {
+            droneToModify.setImageSrc(imageSrc);
         }
     }
 

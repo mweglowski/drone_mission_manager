@@ -150,7 +150,10 @@ const Page: FC = () => {
             </div>
             <div className="mx-auto text-slate-500 text-lg mt-[30px] flex flex-wrap gap-4 justify-center">
               {missionData.missionImages.map((image: Image) => (
-                <div className="rounded border-2 border-slate-200 shadow">
+                <div
+                  className="rounded border-2 border-slate-200 shadow"
+                  key={image.imageUrl}
+                >
                   <img
                     className="rounded max-w-[350px]"
                     key={image.imageUrl}

@@ -6,7 +6,7 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ children, classNames }) => {
-  return <div className={"flex flex-col p-4 justify-center " + classNames}>{children}</div>;
+  return <div className={"flex flex-col p-4 pb-[100px] justify-center " + classNames}>{children}</div>;
 };
 
 export default Section;
